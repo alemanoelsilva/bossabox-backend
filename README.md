@@ -13,6 +13,6 @@ GITHUB_URL=https://api.github.com/users
 
 ## For running tests:
 
-. Unit Test `npm run test:unit`
-. Integration Test `npm run test:integration`
-. All Test `npm run test`
+1. Unit Test `npm run test:unit`
+2. Integration Test `npm run test:integration`
+3. All Test `npm run test`
