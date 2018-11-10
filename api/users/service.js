@@ -4,12 +4,6 @@ const headers = {
   'Content-Type': 'application/json'
 };
 
-/**
- * all users -> https://api.github.com/users
- * specific user -> https://api.github.com/users/alemanoelsilva
- * all repos by one user -> https://api.github.com/users/alemanoelsilva/repos
- *
- */
 const service = (axios, endpoint) => ({
   getUsers: async ({ since }) =>
     axios.get(`${endpoint}?since=${since}`, headers),

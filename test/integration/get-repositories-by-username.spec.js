@@ -42,11 +42,11 @@ describe('Get All Repositories by Username Integration Test', () => {
   });
 
   describe('Get Repositories by Username with success', () => {
-    test('Get all repositories', async () => {
+    test('Get all repositories by default - 30 repositories', async () => {
       const { body, statusCode } = await get({ url: `${GITHUB_URL}/${USERNAME}/repos` });
 
       expect(statusCode).toEqual(200);
-      expect(body.length).toEqual(39);
+      expect(body.length).toEqual(30);
     });
   });
 });
