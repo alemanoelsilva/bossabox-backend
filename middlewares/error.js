@@ -1,14 +1,11 @@
 'use strict';
 
-module.exports = response => error => {
+exports.error = (error, request, response, next) => {
   if (error.isJoi) {
     return response.status(400).json({
-      data: {},
-      error: {
-        status_code: 400,
-        message: error.message,
-        details: error.details
-      }
+      status_code: 400,
+      message: error.message,
+      details: error.details
     });
   }
 

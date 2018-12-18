@@ -1,18 +1,60 @@
-# shaw-backend
+# Configuration by run application
 
-This repository contains the code for Shaw's test
 
-## For running local aplication
+## To initialize the application. 
 
-. Create `.env` file with: 
+### Create an `.env` file 
 
 ```
-PORT=4000
-GITHUB_URL=https://api.github.com/users
+NODE_ENV=development
+
+POSTGRES_DATABASE=bossabox
+POSTGRES_DATABASE_TEST=bossabox_test
+POSTGRES_USER=postgres
+POSTGRES_PASS=postgres123
+
+PORT=3000
 ```
 
-## For running tests:
+## Working with Postgres on Docker
 
-1. Unit Test `npm run test:unit`
-2. Integration Test `npm run test:integration`
-3. All Test `npm run test`
+
+### Create your Dockerfile with content below
+
+```
+FROM postgres:latest
+
+COPY ./scripts/create_db.sh     /docker-entrypoint-initdb.d/10-create_db.sh
+```
+
+### Create a personalized image from Postgres
+
+```bash
+docker build -t alemanoelsilva/postgres .
+```
+
+### Execute to command
+
+```bash
+docker run --name alemanoelsilvapostgres -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres123 -d alemanoelsilva/postgres
+```
+
+### Postgres 
+
+#### To conect with Docker 
+
+```bash
+docker exec -it alemanoelsilvapostgres bash
+
+psql -h localhost -U postgres -W
+
+# password required
+```
+
+#### How to change of database by line comand
+
+```
+\l --> to list of databases
+\c database_name --> to change of database
+\d --> to list of tables
+```

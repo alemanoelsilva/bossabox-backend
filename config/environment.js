@@ -10,14 +10,16 @@ const ENVIRONMENT = {
 
 const env = process.env.NODE_ENV || ENVIRONMENT.DEV;
 
-module.exports = {
+const vars = {
   env,
   app: {
     port: process.env.PORT
   },
-  services: {
-    github: {
-      endpoint: process.env.GITHUB_URL,
-    }
+  db: {
+    database: env === ENVIRONMENT.TEST ? process.env.POSTGRES_DATABASE_TEST : process.env.POSTGRES_DATABASE,
+    user: process.env.POSTGRES_USER,
+    pass: process.env.POSTGRES_PASS
   }
 };
+
+module.exports = vars;
