@@ -7,38 +7,39 @@ exports.getRequestToolsSchema = Joi.object({
 });
 
 exports.getResponseToolsSchema = Joi.object({
-  cards: Joi.array().items(Joi.object({
+  tools: Joi.array().items(Joi.object({
     id: Joi.string().guid().required(),
     title: Joi.string().required(),
     link: Joi.string().required(),
     description: Joi.string().required(),
     tags: Joi.array().items(Joi.string()).required(),
     createdAt: Joi.string().required(),
-  })),
+  })).required(),
+  count: Joi.number().required(),
 });
 
-exports.postRequestToolsSchema = Joi.object({
+exports.postRequestToolSchema = Joi.object({
   title: Joi.string().required(),
   link: Joi.string().required(),
   description: Joi.string().required(),
   tags: Joi.array().items(Joi.string()).required(),
 });
 
-exports.postResponseToolsSchema = Joi.object({
-  tools: Joi.object({
-    id: Joi.string().required(),
+exports.postResponseToolSchema = Joi.object({
+  tool: Joi.object({
+    id: Joi.string().guid().required(),
     title: Joi.string().required(),
     link: Joi.string().required(),
     description: Joi.string().required(),
     tags: Joi.array().items(Joi.string()).required(),
     createdAt: Joi.string().required(),
-  }),
+  }).required(),
 });
 
-exports.deleteRequestToolsSchema = Joi.object({
+exports.deleteRequestToolSchema = Joi.object({
   id: Joi.string().guid().required(),
 });
 
-exports.deleteResponseToolsSchema = Joi.object({
+exports.deleteResponseToolSchema = Joi.object({
   message: Joi.string().required(),
 });

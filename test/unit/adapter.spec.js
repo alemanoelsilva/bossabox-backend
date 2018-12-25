@@ -1,97 +1,118 @@
 'use strict';
 
-const { getAllUsers, getUserByUsername, getRepositories } = require('../../api/users/adapter');
+const {
+  getAllTools,
+  createTool,
+  deleteTool,
+} = require('../../api/tools/adapter');
 
-describe('Adapter Unit tests', () => {
+describe('Tools Adapter Unit tests', () => {
   const mocks = {
     query: '',
     params: '',
-    services: {
-      getUsers: jest.fn(() => ({ data: {}, headers: { link: '' } })),
-      getUser: jest.fn(() => ({ data: {} })),
-      getRepositoriesByUser: jest.fn(() => ({ data: {} }))
+    body: '',
+    repository: {
+      getAll: jest.fn(() => ({ tools: '', count: 1 })),
+      save: jest.fn(data => ({ ...data, id: '', createdAt: '' })),
+      delete: jest.fn(id => id % 2 ? 1 : 0),
     },
-    extractNumberOfString: jest.fn(),
+    formatters: {
+      response: jest.fn(data => data),
+    },
+    logger: {
+      info: jest.fn(),
+      error: jest.fn(),
+    },
     onSuccess: jest.fn(),
     onError: jest.fn(),
   };
 
   beforeEach(() => jest.clearAllMocks());
 
-  describe('Get all users', () => {
+  describe('Get all tools', () => {
     test('Should call the onSuccess Function with success', async () => {
-      await getAllUsers(mocks);
+      await getAllTools(mocks);
 
-      expect(mocks.services.getUsers).toHaveBeenCalledTimes(1);
-      expect(mocks.extractNumberOfString).toHaveBeenCalledTimes(1);
+      expect(mocks.logger.info).toHaveBeenCalledTimes(1);
+      expect(mocks.repository.getAll).toHaveBeenCalledTimes(1);
+      expect(mocks.formatters.response).toHaveBeenCalledTimes(1);
       expect(mocks.onSuccess).toHaveBeenCalledTimes(1);
       expect(mocks.onError).toHaveBeenCalledTimes(0);
     });
 
-    test('Should return error when GetAllUsers Function was called', async () => {
-      await getAllUsers({
+    test('Should return error when getAll function was called', async () => {
+      await getAllTools({
         ...mocks,
-        services: {
-          getUsers: () => { throw new Error('Error GetAllUsers') }
+        repository: {
+          getAll: () => { throw new Error('Error getAll') }
         }
       });
 
-      expect(mocks.extractNumberOfString).toHaveBeenCalledTimes(0);
+      expect(mocks.logger.info).toHaveBeenCalledTimes(1);
+      expect(mocks.formatters.response).toHaveBeenCalledTimes(0);
       expect(mocks.onSuccess).toHaveBeenCalledTimes(0);
       expect(mocks.onError).toHaveBeenCalledTimes(1);
     });
 
-    test('Should return error when extractNumberOfString Function was called', async () => {
-      await getAllUsers({
+    test('Should return error when response formatter Function was called', async () => {
+      await getAllTools({
         ...mocks,
-        extractNumberOfString: () => { throw new Error('Error ExtractNumberOfString') }
-      });
-
-      expect(mocks.services.getUsers).toHaveBeenCalledTimes(1);
-      expect(mocks.onSuccess).toHaveBeenCalledTimes(0);
-      expect(mocks.onError).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('Get one user by username', () => {
-    test('Should call the onSuccess Function with success', async () => {
-      await getUserByUsername(mocks);
-
-      expect(mocks.services.getUser).toHaveBeenCalledTimes(1);
-      expect(mocks.onSuccess).toHaveBeenCalledTimes(1);
-      expect(mocks.onError).toHaveBeenCalledTimes(0);
-    });
-
-    test('Should return error when GetUser Function was called', async () => {
-      await getUserByUsername({
-        ...mocks,
-        services: {
-          getUser: () => { throw new Error('Error GetUser') }
+        formatters: {
+          response: () => { throw new Error('Error formattersResponse') }
         }
       });
 
+      expect(mocks.logger.info).toHaveBeenCalledTimes(1);
+      expect(mocks.logger.error).toHaveBeenCalledTimes(1);
+      expect(mocks.repository.getAll).toHaveBeenCalledTimes(1);
       expect(mocks.onSuccess).toHaveBeenCalledTimes(0);
       expect(mocks.onError).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('Get repositories by username', () => {
+  describe('Create a tool', () => {
     test('Should call the onSuccess Function with success', async () => {
-      await getRepositories(mocks);
+      await createTool(mocks);
 
-      expect(mocks.services.getRepositoriesByUser).toHaveBeenCalledTimes(1);
+      expect(mocks.logger.info).toHaveBeenCalledTimes(1);
+      expect(mocks.repository.save).toHaveBeenCalledTimes(1);
       expect(mocks.onSuccess).toHaveBeenCalledTimes(1);
       expect(mocks.onError).toHaveBeenCalledTimes(0);
     });
 
-    test('Should return error when GetRepositoriesByUser Function was called', async () => {
-      await getRepositories({
+    test('Should return error when save Function was called', async () => {
+      await createTool({
         ...mocks,
-        services: {
-          getRepositoriesByUser: () => { throw new Error('Error GetRepositoriesByUser') }
+        repository: {
+          save: () => { throw new Error('Error save') }
         }
       });
 
+      expect(mocks.logger.error).toHaveBeenCalledTimes(1);
+      expect(mocks.onSuccess).toHaveBeenCalledTimes(0);
+      expect(mocks.onError).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('Delete a tool', () => {
+    test('Should call the onSuccess Function with success', async () => {
+      await deleteTool(mocks);
+
+      expect(mocks.logger.info).toHaveBeenCalledTimes(1);
+      expect(mocks.repository.delete).toHaveBeenCalledTimes(1);
+      expect(mocks.onSuccess).toHaveBeenCalledTimes(1);
+      expect(mocks.onError).toHaveBeenCalledTimes(0);
+    });
+
+    test('Should return error when delete Function was called', async () => {
+      await deleteTool({
+        ...mocks,
+        repository: {
+          delete: () => { throw new Error('Error delete') }
+        }
+      });
+
+      expect(mocks.logger.error).toHaveBeenCalledTimes(1);
       expect(mocks.onSuccess).toHaveBeenCalledTimes(0);
       expect(mocks.onError).toHaveBeenCalledTimes(1);
     });

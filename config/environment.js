@@ -13,12 +13,15 @@ const env = process.env.NODE_ENV || ENVIRONMENT.DEV;
 const vars = {
   env,
   app: {
-    port: process.env.PORT
+    port: process.env.PORT,
+  },
+  logger: {
+    level: env === ENVIRONMENT.TEST ? 'fatal' : process.env.LOGGER_LEVEL,
   },
   db: {
     database: env === ENVIRONMENT.TEST ? process.env.POSTGRES_DATABASE_TEST : process.env.POSTGRES_DATABASE,
     user: process.env.POSTGRES_USER,
-    pass: process.env.POSTGRES_PASS
+    pass: process.env.POSTGRES_PASS,
   }
 };
 

@@ -9,10 +9,10 @@ const {
 const {
   getRequestToolsSchema,
   getResponseToolsSchema,
-  postRequestToolsSchema,
-  postResponseToolsSchema,
-  deleteRequestToolsSchema,
-  deleteResponseToolsSchema,
+  postRequestToolSchema,
+  postResponseToolSchema,
+  deleteRequestToolSchema,
+  deleteResponseToolSchema,
 } = require('./api/tools/schemas');
 
 const {
@@ -28,14 +28,14 @@ module.exports = (app) => {
   );
 
   app.post('/api/tools',
-    requestValidation({ schema: postRequestToolsSchema, requestType: 'body' }),
+    requestValidation({ schema: postRequestToolSchema, requestType: 'body' }),
     createTool,
-    responseValidation({ schema: postResponseToolsSchema }),
+    responseValidation({ schema: postResponseToolSchema }),
   );
 
   app.delete('/api/tools/:id',
-    requestValidation({ schema: deleteRequestToolsSchema, requestType: 'params' }),
+    requestValidation({ schema: deleteRequestToolSchema, requestType: 'params' }),
     deleteTool,
-    responseValidation({ schema: deleteResponseToolsSchema }),
+    responseValidation({ schema: deleteResponseToolSchema }),
   );
 };

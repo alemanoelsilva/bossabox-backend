@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "node ./scripts/seed",
     "start": "node server.js",
-    "dev": "nodemon server.js",
+    "dev": "node server.js",
     "test:coverage": "NODE_ENV=test jest --silent --runInBand --coverage --forceExit ./test/**/*.spec.js",
     "test:unit": "NODE_ENV=test jest --coverage --runInBand --forceExit ./test/unit/*.spec.js",
     "test:integration": "NODE_ENV=test jest --runInBand --coverage --forceExit ./test/integration/*.spec.js",
@@ -15,11 +15,11 @@
   "author": "Alexandre Manoel da Silva",
   "license": "ISC",
   "dependencies": {
+    "bunyan": "^1.8.12",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "joi": "^14.3.0",
     "moment": "^2.23.0",
-    "nodemon": "^1.18.2",
     "pg": "^7.7.1",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.38.0"
@@ -32,7 +32,7 @@
   "jest": {
     "verbose": true,
     "testURL": "http://localhost/",
-    "setupTestFrameworkScriptFile": "./test/setup.js",
+    "setupTestFrameworkScriptFile": "./test/integration/setup.js",
     "collectCoverageFrom": [
       "api/**/*.js",
       "!**/node_modules/**",

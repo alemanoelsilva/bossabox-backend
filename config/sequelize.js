@@ -1,6 +1,7 @@
 'use strict';
 
 const Sequelize = require('sequelize');
+const logger = require('../api/helpers/logger');
 
 let connection = null;
 
@@ -12,14 +13,15 @@ const sequelizeDB = ({
       connection = new Sequelize(database, user, pass, {
         host: 'localhost',
         dialect: 'postgres',
-        operatorsAliases: false
+        operatorsAliases: false,
+        logging: false
       });
 
-      console.log(`Database connected ${database}`);
+      logger.info(`Database connected ${database}`);
 
       return connection;
     } catch (error) {
-      console.log(`There is an error in the connection Postgres ${error}`);
+      logger.error(`There is an error in the connection Postgres ${error}`);
       return null;
     }
   },

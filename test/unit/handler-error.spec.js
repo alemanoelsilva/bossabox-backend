@@ -18,5 +18,19 @@ describe('Handler Error Unit tests', () => {
       expect(response.status).toBeCalled;
       expect(response.status().json).toBeCalled;
     });
+
+    test('Should return an object of error treated when name and details was not informed', async () => {
+      handlerError(response)({ ...error, name: null, details: null });
+
+      expect(response.status).toBeCalled;
+      expect(response.status().json).toBeCalled;
+    });
+
+    test('Should return an object of error treated when error is Joi', async () => {
+      handlerError(response)({ ...error, isJoi: true });
+
+      expect(response.status).toBeCalled;
+      expect(response.status().json).toBeCalled;
+    });
   });
 });

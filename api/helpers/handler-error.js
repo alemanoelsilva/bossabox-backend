@@ -3,12 +3,10 @@
 module.exports = response => error => {
   if (error.isJoi) {
     return response.status(400).json({
-      data: {},
-      error: {
-        status_code: 400,
-        message: error.message,
-        details: error.details
-      }
+      name: error.name,
+      message: error.message,
+      details: error.details,
+      status_code: error.status || 400,
     });
   }
 

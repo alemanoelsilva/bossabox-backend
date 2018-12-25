@@ -13,6 +13,8 @@ POSTGRES_DATABASE_TEST=bossabox_test
 POSTGRES_USER=postgres
 POSTGRES_PASS=postgres123
 
+LOGGER_LEVEL=trace
+
 PORT=3000
 ```
 

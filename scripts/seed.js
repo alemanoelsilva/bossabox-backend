@@ -73,7 +73,7 @@ async function check() {
   if (env === 'development') {
     await connect();
 
-    const { count } = await model.findAndCountAll({ page: 1, limit: 10 });
+    const { count } = await model.findAndCountAll();
 
     if (!count) {
       await clean();
