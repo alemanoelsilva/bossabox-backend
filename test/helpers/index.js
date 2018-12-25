@@ -4,16 +4,21 @@ const request = require('supertest');
 
 const app = require('../../app')();
 
-exports.requestGet = async ({ url, query }) => request(app).get(url).query(query);
-exports.requestPost = async ({ url, body = '' }) => request(app).post(url).send(body);
-exports.requestDelete = async ({ url, params = '' }) => request(app).delete(`${url}/${params}`);
+exports.requestGet = async ({ url, query }) =>
+  request(app).get(url).query(query);
+
+exports.requestPost = async ({ url, body = '' }) =>
+  request(app).post(url).send(body);
+
+exports.requestDelete = async ({ url, params = '' }) =>
+  request(app).delete(`${url}/${params}`);
 
 exports.populateDataOnDB = async ({ data, model }) => {
   try {
     return model.bulkCreate(data);
   } catch (error) {
     console.log('There is error on action callled', error);
-    return
+    return;
   };
 }
 

@@ -1,7 +1,7 @@
 'use strict';
 
 const { connect } = require('./config/sequelize');
-const logger = require('./api/helpers/logger');
+const logger = require('./config/logger');
 
 const app = require('./app');
 const { app: { port }, db: { database, user, pass, logging } } = require('./config/environment');

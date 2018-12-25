@@ -14,14 +14,9 @@ const {
 } = require('../helpers');
 
 describe('Get All Tools Integration Test', () => {
-  beforeAll(async () => {
-    await Tool.destroy({ where: {} })
-    return populateDataOnDB({ data: generateTools, model: Tool });
-  });
+  beforeAll(async () => populateDataOnDB({ data: generateTools, model: Tool }));
 
-  afterAll(async (done) => {
-    return Tool.destroy({ where: {} })
-  });
+  afterAll(async () => Tool.destroy({ where: {} }));
 
   describe('Get tools with success', () => {
     test('Should return all Tools', async () => {
@@ -33,11 +28,11 @@ describe('Get All Tools Integration Test', () => {
         expect(body.tools.length).toEqual(5);
         expect(body.tools).forEacht((tool, index) => {
           expect(tool).toHaveProperty('id', 'title', 'link', 'description', 'createdAt', 'tags');
-          expect(tool.id).toEqual(generateTools[index].id)
-          expect(tool.title).toEqual(generateTools[index].title)
-          expect(tool.link).toEqual(generateTools[index].link)
-          expect(tool.description).toEqual(generateTools[index].description)
-          expect(tool.tags).toEqual(generateTools[index].tags)
+          expect(tool.id).toEqual(generateTools[index].id);
+          expect(tool.title).toEqual(generateTools[index].title);
+          expect(tool.link).toEqual(generateTools[index].link);
+          expect(tool.description).toEqual(generateTools[index].description);
+          expect(tool.tags).toEqual(generateTools[index].tags);
         });
 
       } catch (error) {}
@@ -55,11 +50,11 @@ describe('Get All Tools Integration Test', () => {
         expect(body.tools.length).toEqual(1);
         expect(body.tools).forEacht((tool, index) => {
           expect(tool).toHaveProperty('id', 'title', 'link', 'description', 'createdAt', 'tags');
-          expect(tool.id).toEqual(generateTools[index].id)
-          expect(tool.title).toEqual(generateTools[index].title)
-          expect(tool.link).toEqual(generateTools[index].link)
-          expect(tool.description).toEqual(generateTools[index].description)
-          expect(tool.tags).toEqual(generateTools[index].tags)
+          expect(tool.id).toEqual(generateTools[index].id);
+          expect(tool.title).toEqual(generateTools[index].title);
+          expect(tool.link).toEqual(generateTools[index].link);
+          expect(tool.description).toEqual(generateTools[index].description);
+          expect(tool.tags).toEqual(generateTools[index].tags);
         });
 
       } catch (error) {}
@@ -77,11 +72,11 @@ describe('Get All Tools Integration Test', () => {
         expect(body.tools.length).toEqual(3);
         expect(body.tools).forEacht((tool, index) => {
           expect(tool).toHaveProperty('id', 'title', 'link', 'description', 'createdAt', 'tags');
-          expect(tool.id).toEqual(generateTools[index].id)
-          expect(tool.title).toEqual(generateTools[index].title)
-          expect(tool.link).toEqual(generateTools[index].link)
-          expect(tool.description).toEqual(generateTools[index].description)
-          expect(tool.tags).toEqual(generateTools[index].tags)
+          expect(tool.id).toEqual(generateTools[index].id);
+          expect(tool.title).toEqual(generateTools[index].title);
+          expect(tool.link).toEqual(generateTools[index].link);
+          expect(tool.description).toEqual(generateTools[index].description);
+          expect(tool.tags).toEqual(generateTools[index].tags);
         });
 
       } catch (error) {}

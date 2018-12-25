@@ -2,7 +2,7 @@
 
 const moment = require('moment');
 
-const logger = require('../helpers/logger');
+const logger = require('../../config/logger');
 
 const adapter = require('./adapter');
 const model = require('./model');

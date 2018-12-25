@@ -2,7 +2,7 @@
 
 const bunyan = require('bunyan');
 
-const { logger: { level } } = require('../../config/environment')
+const { logger: { level } } = require('./environment')
 
 module.exports = bunyan.createLogger({
   name: 'bossabox',
