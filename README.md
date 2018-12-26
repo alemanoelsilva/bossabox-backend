@@ -1,9 +1,8 @@
-# Configuration by run application
-
+# Configuration of application
 
 ## To initialize the application. 
 
-### Create an `.env` file 
+### Create `.env` file 
 
 ```
 NODE_ENV=development
@@ -20,40 +19,21 @@ PORT=3000
 
 ## Working with Postgres on Docker
 
+You will need of postgres image personalized, you must run `./build_postgres.sh`, after this, check your containers with `docker ps`. You can see the container postgres running.
 
-### Create your Dockerfile with content below
+### Postgres - Basic Comands
 
-```
-FROM postgres:latest
-
-COPY ./scripts/create_db.sh     /docker-entrypoint-initdb.d/10-create_db.sh
-```
-
-### Create a personalized image from Postgres
+1. Connection on Docker
 
 ```bash
-docker build -t alemanoelsilva/postgres .
-```
-
-### Execute to command
-
-```bash
-docker run --name alemanoelsilvapostgres -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres123 -d alemanoelsilva/postgres
-```
-
-### Postgres 
-
-#### To conect with Docker 
-
-```bash
-docker exec -it alemanoelsilvapostgres bash
+docker exec -it {{ container_name }} bash
 
 psql -h localhost -U postgres -W
 
 # password required
 ```
 
-#### How to change of database by line comand
+2. Manipulating postgres database 
 
 ```
 \l --> to list of databases

@@ -4,7 +4,6 @@
   "description": "API for BossaBox Challenge",
   "main": "server.js",
   "scripts": {
-    "prestart": "node ./scripts/seed",
     "start": "node server.js",
     "dev": "node server.js",
     "test:coverage": "NODE_ENV=test jest --silent --runInBand --coverage --forceExit ./test/**/*.spec.js",

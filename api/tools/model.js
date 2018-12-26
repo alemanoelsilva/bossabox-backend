@@ -40,6 +40,6 @@ const Tools = getConnection().define('tool', {
   timestamps: false
 });
 
-Tools.sync({ force: false });
+Tools.sync({ force: true });
 
 module.exports = Tools;
